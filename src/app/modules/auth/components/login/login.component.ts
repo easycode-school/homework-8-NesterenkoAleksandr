@@ -22,21 +22,27 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     // Init form
     this.loginForm = new FormGroup({
-      'email': new FormControl('', [Validators.email, Validators.required]),
-      'password': new FormControl('', [Validators.required, Validators.minLength(5)])
+      email: new FormControl('', [Validators.email, Validators.required]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8)])
     });
   }
 
-  onLogin() {
+  /**
+   * Обрабочтик события "Submit" формы LogIn
+   */
+  public onLogin() {
     const email = this.loginForm.get('email').value;
     const password = this.loginForm.get('password').value;
-    
-    this.authService.login(email, password).subscribe((data: OnLoginAnswer) => {
-      if (data.error) {
-        this.messageService.add({severity:'error', summary:'Server error', detail: data.message});
-      } else {
-        // redirect
-      }
-    });
+
+    this.authService.login(email, password).subscribe(
+      (data: OnLoginAnswer) => {
+        if (data.error) {
+          this.messageService.add({severity: 'error', summary: 'Error message', detail: data.message});
+        } else {
+          this.messageService.add({severity: 'success', summary: 'Success mesage', detail: 'User login is successful!'});
+        }
+      },
+      (error) => this.messageService.add({severity: 'error', summary: 'Server error:', detail: error.message})
+    );
   }
 }

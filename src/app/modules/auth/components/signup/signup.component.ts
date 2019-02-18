@@ -3,9 +3,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MyErrorStateMatcher } from './../../../../helpers/errorStateMatcher';
 import { AuthService } from '../../services/auth.service';
 import { MessageService } from 'primeng/api';
-import { OnLoginAnswer } from '../../interfaces/OnLoginAnswer';
 import { User } from '../../interfaces/user';
 import { Router } from '@angular/router';
+import { OnSignupAnswer } from '../../interfaces/OnSignupAnswer';
 
 @Component({
   selector: 'app-signup',
@@ -28,13 +28,13 @@ export class SignupComponent implements OnInit {
     this.SignUpForm = new FormGroup({
       email: new FormControl('', [Validators.email, Validators.required]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-      nickname: new FormControl('', [Validators.required]),
-      first_name: new FormControl('', [Validators.required]),
-      last_name: new FormControl('', [Validators.required]),
+      nickname: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-zA-Z0-9]*')]),
+      first_name: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-zA-Z]*')]),
+      last_name: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-zA-Z]*')]),
       phone: new FormControl('', [Validators.required]),
       gender_orientation: new FormControl('', [Validators.required]),
-      city: new FormControl('', [Validators.required]),
-      country: new FormControl('', [Validators.required]),
+      city: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-zA-Z0-9]*')]),
+      country: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-zA-Z]*')]),
       date_of_birth_day: new FormControl('', [Validators.required, Validators.min(1), Validators.max(31)]),
       date_of_birth_month: new FormControl('', [Validators.required, Validators.min(1), Validators.max(12)]),
       date_of_birth_year: new FormControl('', [Validators.required, Validators.min(1900), Validators.max(2018)]),
@@ -58,11 +58,11 @@ export class SignupComponent implements OnInit {
       country: this.SignUpForm.get('country').value,
       date_of_birth_day: this.SignUpForm.get('date_of_birth_day').value,
       date_of_birth_month: this.SignUpForm.get('date_of_birth_month').value,
-      date_of_birth_year:  this.SignUpForm.get('date_of_birth_year').value
+      date_of_birth_year: this.SignUpForm.get('date_of_birth_year').value
     };
 
     this.authService.signUp(user).subscribe(
-      (res: OnLoginAnswer) => {
+      (res: OnSignupAnswer) => {
         if (res.error) {
           this.messageService.add({severity: 'error', summary: 'Error message', detail: res.message});
         } else {

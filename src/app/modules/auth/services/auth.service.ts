@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { OnLoginAnswer } from './../interfaces/OnLoginAnswer';
 import { User } from '../interfaces/user';
+import { OnSignupAnswer } from '../interfaces/OnSignupAnswer';
 
 @Injectable({
   providedIn: 'root'
@@ -43,13 +44,13 @@ export class AuthService {
    * Регистрация нового пользователя
    * @param user - данные для регистрации нового пользователя
    */
-  public signUp(user: User): Observable<OnLoginAnswer> {
+  public signUp(user: User): Observable<OnSignupAnswer> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-type': 'application/json'
       })
     };
 
-    return this.http.post<OnLoginAnswer>(`${this.apiUrl}/public/auth/signup`, user, httpOptions);
+    return this.http.post<OnSignupAnswer>(`${this.apiUrl}/public/auth/signup`, user, httpOptions);
   }
 }

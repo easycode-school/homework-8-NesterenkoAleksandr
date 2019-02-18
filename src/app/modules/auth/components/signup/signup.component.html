@@ -10,18 +10,27 @@
           <form (ngSubmit)="onSignUp()" [formGroup]="SignUpForm">
             <mat-form-field class="w-50 p-3">
               <input type="text" matInput placeholder="First name" formControlName="first_name" [errorStateMatcher]="matcher">
+              <mat-error *ngIf="SignUpForm.get('first_name').errors?.pattern">
+                Only latin letters and first character in uppercase
+              </mat-error>
               <mat-error *ngIf="SignUpForm.get('first_name').errors?.required">
                 First name is <strong>required</strong>
               </mat-error>
             </mat-form-field>
             <mat-form-field class="w-50 p-3">
               <input type="text" matInput placeholder="Last name" formControlName="last_name" [errorStateMatcher]="matcher">
+              <mat-error *ngIf="SignUpForm.get('last_name').errors?.pattern">
+                Only latin letters and first character in uppercase
+              </mat-error>
               <mat-error *ngIf="SignUpForm.get('last_name').errors?.required">
                 Last name is <strong>required</strong>
               </mat-error>
             </mat-form-field>
             <mat-form-field class="w-100 p-3">
               <input type="text" matInput placeholder="Nickname" formControlName="nickname" [errorStateMatcher]="matcher">
+              <mat-error *ngIf="SignUpForm.get('nickname').errors?.pattern">
+                Only latin letters and digits, first character in uppercase
+              </mat-error>
               <mat-error *ngIf="SignUpForm.get('nickname').errors?.required">
                 Nickname is <strong>required</strong>
               </mat-error>
@@ -55,12 +64,18 @@
             </mat-form-field>
             <mat-form-field class="w-50 p-3">
               <input type="text" matInput placeholder="Country" formControlName="country" [errorStateMatcher]="matcher">
+              <mat-error *ngIf="SignUpForm.get('country').errors?.pattern">
+                Only latin letters and first character in uppercase
+              </mat-error>
               <mat-error *ngIf="SignUpForm.get('country').errors?.required">
                 Country is <strong>required</strong>
               </mat-error>
             </mat-form-field>
             <mat-form-field class="w-50 p-3">
               <input type="text" matInput placeholder="City" formControlName="city" [errorStateMatcher]="matcher">
+              <mat-error *ngIf="SignUpForm.get('city').errors?.pattern">
+               Only latin letters and digits, first character in uppercase
+              </mat-error>
               <mat-error *ngIf="SignUpForm.get('city').errors?.required">
                 City is <strong>required</strong>
               </mat-error>
@@ -75,7 +90,7 @@
               </mat-error>
           </mat-form-field>
             <mat-form-field class="w-100 p-3">
-              <input matInput placeholder="name@example.com" formControlName="email" [errorStateMatcher]="matcher">
+              <input type="email" matInput placeholder="name@example.com" formControlName="email" [errorStateMatcher]="matcher">
               <mat-error *ngIf="SignUpForm.get('email').errors?.email && !SignUpForm.get('email').errors?.required">
                 Please enter a valid email
               </mat-error>

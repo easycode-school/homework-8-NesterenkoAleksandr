@@ -6,7 +6,7 @@
 @import "~primeng/resources/primeng.min.css";
 
 .text-pink {
-  color: #e12ebc;
+  color: #fa7268;
 }
 
 .h-100vh {
@@ -14,5 +14,5 @@
 }
 
 .bg-pink {
-  background-color: #e12ebc;
+  background-color: #fa7268;
 }
